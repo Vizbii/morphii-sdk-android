@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.morphii.morphiisampleapp.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_above="@+id/tab_layout"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/get_png_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:text="Get PNG"/>
+
+        <Button
+            android:id="@+id/reset_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:text="Reset"/>
+
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.3"
+            android:text="Submit"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/png_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        android:layout_above="@+id/button_layout"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"/>
+
+    <RelativeLayout
+        android:id="@+id/basic_view_bottom"
+        android:layout_width="120dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/selection_view_layout"
+        android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:id="@+id/selection_view_layout"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum=".9">
+
+        <TextView
+            android:id="@+id/tab_one"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.3"
+            android:background="@color/colorGreen"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"/>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:id="@+id/tab_two"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.3"
+            android:background="@color/colorGreen"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"/>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"/>
+
+
+        <TextView
+            android:id="@+id/tab_three"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.3"
+            android:background="@color/colorGreen"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"/>
+    </LinearLayout>
+</RelativeLayout>
