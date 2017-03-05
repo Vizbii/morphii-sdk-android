@@ -15,20 +15,21 @@ The Morphii SDK provides developers with the ability to add a morphii technology
 ### Project Setup
 The Morphii SDK is located on Bintray: https://bintray.com/vizbii/MorphiiSDKAndroid
 
-1. If you are using gradle, add the following line to your app module's gradle file under dependencies:
+- If you are using gradle, add the following line to your app module's gradle file under dependencies:
 `compile 'com.morphii.sdk:morphii-sdk-android:1.0.1'`
 
-2. If you are using Maven add the following:
-```
+- If you are using Maven add the following
+
+```xml
 <dependency>
-	<groupId>com.morphii.sdk</groupId>
-	<artifactId>morphii-sdk-android</artifactId>
-	<version>1.0.1</version>
-	<type>pom</type>
+  <groupId>com.morphii.sdk</groupId>
+  <artifactId>morphii-sdk-android</artifactId>
+  <version>1.0.1</version>
+  <type>pom</type>
 </dependency>
 ```
 
-3. Add `<uses-permission android:name="android.permission.INTERNET"/>` to your `AndroidManifest` file.
+- Add `<uses-permission android:name="android.permission.INTERNET"/>` to your `AndroidManifest` file.
 
 
 ### Imports
@@ -66,7 +67,7 @@ This is the first method that **MUST** be called before any other method. It req
 public class MainActivity extends AppCompatActivity implements BasicView.BasicViewDelegate, MorphiiSelectionView.MorphiiSelectionCallback {
 	@Override
   protected void onCreate(Bundle savedInstanceState) {
-  	super.onCreate(savedInstanceState);
+    super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
     sharedInstance().setUp(MainActivity.this);
@@ -83,24 +84,24 @@ This method authenticates the developer's account with the morphii servers. It r
 public class MainActivity extends AppCompatActivity implements BasicView.BasicViewDelegate, MorphiiSelectionView.MorphiiSelectionCallback {
 	@Override
   protected void onCreate(Bundle savedInstanceState) {
-  	super.onCreate(savedInstanceState);
+    super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
     sharedInstance().setUp(MainActivity.this);
-		sharedInstance().authenticate("user_name", "password", "account-id", new MorphiiService.AuthenticationCallback() {
-				 @Override
-				 public void authenticated(AuthenticationResults authenticationResults) {
-					 if (authenticationResults.isAuthenticated()) {
-						 // Authentication successful.
-						 // Add morphii views.
-					 }
-					 else {
-						 // Authentication failed.
-						 Log.d(Constants.TAG, "error code: " + authenticationResults.error().code());
-						 Log.d(Constants.TAG, "error message: " + authenticationResults.error().message());
-					 }
-				 }
-		 });
+    sharedInstance().authenticate("user_name", "password", "account-id", new MorphiiService.AuthenticationCallback() {
+      @Override
+      public void authenticated(AuthenticationResults authenticationResults) {
+        if (authenticationResults.isAuthenticated()) {
+          // Authentication successful.
+          // Add morphii views.
+        }
+        else {
+          // Authentication failed.
+          Log.d(Constants.TAG, "error code: " + authenticationResults.error().code());
+          Log.d(Constants.TAG, "error message: " + authenticationResults.error().message());
+        }
+      }
+    });
   }
 }
 ```
@@ -112,35 +113,35 @@ This method adds a [BasicView](#basicview) to the specified container layout. Th
 
 ```java
 public BasicView createBasicView() {
-		// Project information (required)
-		Project project = new Project("my-project-id", "My project description");
+  // Project information (required)
+  Project project = new Project("my-project-id", "My project description");
 
-		// Target information (required)
-		HashMap<String, Object> metaData = new HashMap<>();
-		metaData.put("key1", "value-1");
-		metaData.put("key2", "value-2");
-		Target target = new Target("my-target-id", "question", metaData);
+  // Target information (required)
+  HashMap<String, Object> metaData = new HashMap<>();
+  metaData.put("key1", "value-1");
+  metaData.put("key2", "value-2");
+  Target target = new Target("my-target-id", "question", metaData);
 
-		// Options configuration (required)
-		Options options = new Options("live", 0.8);
+  // Options configuration (required)
+  Options options = new Options("live", 0.8);
 
-		// Comment configuration (required)
-		Comment comment = new Comment(false, false, 200, "Comment", "Enter comment");
+  // Comment configuration (required)
+  Comment comment = new Comment(false, false, 200, "Comment", "Enter comment");
 
-		// User information (optional)
-		HashMap<String, Object> userProperties = new HashMap<>();
-		userProperties.put("email", "useremail@emailservice.com");
-		userProperties.put("age", "24");
-		User user = new User("user-id", "external", userProperties);
+  // User information (optional)
+  HashMap<String, Object> userProperties = new HashMap<>();
+  userProperties.put("email", "useremail@emailservice.com");
+  userProperties.put("age", "24");
+  User user = new User("user-id", "external", userProperties);
 
-		// Morphii configuration.
-		MorphiiConfiguration morphiiConfig = new MorphiiConfiguration(true);
-		morphiiConfig.add("6202184382145363968", null, 0);
+  // Morphii configuration.
+  MorphiiConfiguration morphiiConfig = new MorphiiConfiguration(true);
+  morphiiConfig.add("6202184382145363968", null, 0);
 
-		BasicViewConfiguration config = new BasicViewConfiguration(morphiiConfig, target, project, comment, mOptions, mUser);
-		BasicView basicView = MorphiiService.sharedInstance().add(config, this, this);
+  BasicViewConfiguration config = new BasicViewConfiguration(morphiiConfig, target, project, comment, mOptions, mUser);
+  BasicView basicView = MorphiiService.sharedInstance().add(config, this, this);
 
-		return basicView;
+  return basicView;
 }
 ```
 
@@ -152,13 +153,13 @@ This method returns a [MorphiiSelectionView](#morphiiselectionview) object that 
 ```java
 public MorphiiSelectionView createSelectionView() {
 
-		// Morphii configuration.
-		MorphiiConfiguration morphiiConfig = new MorphiiConfiguration(true);
-		morphiiConfig.add("6202184382145363968", null, 0);
+  // Morphii configuration.
+  MorphiiConfiguration morphiiConfig = new MorphiiConfiguration(true);
+  morphiiConfig.add("6202184382145363968", null, 0);
 
-		MorphiiSelectionView morphiiSelectionView = MorphiiService.sharedInstance().addSelectionView(MainActivity.this, morphiiConfig2, 0.8, containerLayout.getHeight(), this);
+  MorphiiSelectionView morphiiSelectionView = MorphiiService.sharedInstance().addSelectionView(MainActivity.this, morphiiConfig2, 0.8, containerLayout.getHeight(), this);
 
-		return basicView;
+  return basicView;
 }
 ```
 
@@ -170,40 +171,40 @@ This method submits data from all `BasicView`s currently in the app, if they hav
 
 ```java
 public void submit() {
-	MorphiiService.sharedInstance().submit(new ReactionService.ReactionRequestCallback() {
-		@Override
-		public void reactionsSubmitted(ArrayList<ReactionResultRecord> arrayList) {
-				for (ReactionResultRecord resultRecord:arrayList) {
-					Log.d(Constants.TAG, "is submitted: " + resultRecord.isSubmitted());
-					Log.d(Constants.TAG, "view id: " + resultRecord.viewId());
-					Log.d(Constants.TAG, "target id: " + resultRecord.targetId());
-					if (resultRecord.isSubmitted()) {
-						Log.d(Constants.TAG, "reaction id: " + resultRecord.reactionId());
-						if (resultRecord.morphii() != null) {
-							Log.d(Constants.TAG, "morphii id: " + resultRecord.morphii().id());
-							Log.d(Constants.TAG, "morphii name: " + resultRecord.morphii().name());
-							Log.d(Constants.TAG, "morphii display name: " + resultRecord.morphii().displayName());
-							Log.d(Constants.TAG, "morphii intensity: " + resultRecord.morphii().intensity());
-							Log.d(Constants.TAG, "morphii weight: " + resultRecord.morphii().weight());
-						}
+  MorphiiService.sharedInstance().submit(new ReactionService.ReactionRequestCallback() {
+    @Override
+    public void reactionsSubmitted(ArrayList<ReactionResultRecord> arrayList) {
+      for (ReactionResultRecord resultRecord:arrayList) {
+        Log.d(Constants.TAG, "is submitted: " + resultRecord.isSubmitted());
+        Log.d(Constants.TAG, "view id: " + resultRecord.viewId());
+        Log.d(Constants.TAG, "target id: " + resultRecord.targetId());
+        if (resultRecord.isSubmitted()) {
+          Log.d(Constants.TAG, "reaction id: " + resultRecord.reactionId());
+          if (resultRecord.morphii() != null) {
+            Log.d(Constants.TAG, "morphii id: " + resultRecord.morphii().id());
+            Log.d(Constants.TAG, "morphii name: " + resultRecord.morphii().name());
+            Log.d(Constants.TAG, "morphii display name: " + resultRecord.morphii().displayName());
+            Log.d(Constants.TAG, "morphii intensity: " + resultRecord.morphii().intensity());
+            Log.d(Constants.TAG, "morphii weight: " + resultRecord.morphii().weight());
+          }
 
-						if (resultRecord.comment() != null) {
-							Log.d(Constants.TAG, "comment text: " + resultRecord.comment().text());
-							Log.d(Constants.TAG, "comment locale: " + resultRecord.comment().locale());
-						}
-						else {
-							Log.d(Constants.TAG, "No comment data");
-						}
-					}
-					else {
-						Log.d(Constants.TAG, "Submit failed");
-						Log.d(Constants.TAG, "error code: " + resultRecord.error().code());
-						Log.d(Constants.TAG, "error message: " + resultRecord.error().message());
-					}
-					Log.d(Constants.TAG, "=================================================");
-			}
-		}
-	});
+          if (resultRecord.comment() != null) {
+            Log.d(Constants.TAG, "comment text: " + resultRecord.comment().text());
+            Log.d(Constants.TAG, "comment locale: " + resultRecord.comment().locale());
+          }
+          else {
+            Log.d(Constants.TAG, "No comment data");
+          }
+        }
+        else {
+          Log.d(Constants.TAG, "Submit failed");
+          Log.d(Constants.TAG, "error code: " + resultRecord.error().code());
+          Log.d(Constants.TAG, "error message: " + resultRecord.error().message());
+        }
+        Log.d(Constants.TAG, "=================================================");
+      }
+    }
+  });
 }
 ```
 
@@ -214,7 +215,7 @@ This method resets all of the `BasicView`s to their default configuration. The m
 
 ```java
 public void reset() {
-	MorphiiService.sharedInstance().resetAll(true);
+  MorphiiService.sharedInstance().resetAll(true);
 }
 ```
 
@@ -229,41 +230,41 @@ This method takes the data from the specific `BasicView` and submits it. It will
 
 ```java
 public void submit() {
-	// The mBasicView variable is from creating a BasicView.
-	BasicView.submit(mBasicView, new ReactionService.ReactionRequestCallback() {
-		@Override
-		public void reactionsSubmitted(ArrayList<ReactionResultRecord> arrayList) {
-				for (ReactionResultRecord resultRecord:arrayList) {
-					Log.d(Constants.TAG, "is submitted: " + resultRecord.isSubmitted());
-					Log.d(Constants.TAG, "view id: " + resultRecord.viewId());
-					Log.d(Constants.TAG, "target id: " + resultRecord.targetId());
-					if (resultRecord.isSubmitted()) {
-						Log.d(Constants.TAG, "reaction id: " + resultRecord.reactionId());
-						if (resultRecord.morphii() != null) {
-							Log.d(Constants.TAG, "morphii id: " + resultRecord.morphii().id());
-							Log.d(Constants.TAG, "morphii name: " + resultRecord.morphii().name());
-							Log.d(Constants.TAG, "morphii display name: " + resultRecord.morphii().displayName());
-							Log.d(Constants.TAG, "morphii intensity: " + resultRecord.morphii().intensity());
-							Log.d(Constants.TAG, "morphii weight: " + resultRecord.morphii().weight());
-						}
+  // The mBasicView variable is from creating a BasicView.
+  BasicView.submit(mBasicView, new ReactionService.ReactionRequestCallback() {
+    @Override
+    public void reactionsSubmitted(ArrayList<ReactionResultRecord> arrayList) {
+      for (ReactionResultRecord resultRecord:arrayList) {
+        Log.d(Constants.TAG, "is submitted: " + resultRecord.isSubmitted());
+        Log.d(Constants.TAG, "view id: " + resultRecord.viewId());
+        Log.d(Constants.TAG, "target id: " + resultRecord.targetId());
+        if (resultRecord.isSubmitted()) {
+          Log.d(Constants.TAG, "reaction id: " + resultRecord.reactionId());
+          if (resultRecord.morphii() != null) {
+            Log.d(Constants.TAG, "morphii id: " + resultRecord.morphii().id());
+            Log.d(Constants.TAG, "morphii name: " + resultRecord.morphii().name());
+            Log.d(Constants.TAG, "morphii display name: " + resultRecord.morphii().displayName());
+            Log.d(Constants.TAG, "morphii intensity: " + resultRecord.morphii().intensity());
+            Log.d(Constants.TAG, "morphii weight: " + resultRecord.morphii().weight());
+          }
 
-						if (resultRecord.comment() != null) {
-							Log.d(Constants.TAG, "comment text: " + resultRecord.comment().text());
-							Log.d(Constants.TAG, "comment locale: " + resultRecord.comment().locale());
-						}
-						else {
-							Log.d(Constants.TAG, "No comment data");
-						}
-					}
-					else {
-						Log.d(Constants.TAG, "Submit failed");
-						Log.d(Constants.TAG, "error code: " + resultRecord.error().code());
-						Log.d(Constants.TAG, "error message: " + resultRecord.error().message());
-					}
-					Log.d(Constants.TAG, "=================================================");
-			}
-		}
-	});
+          if (resultRecord.comment() != null) {
+            Log.d(Constants.TAG, "comment text: " + resultRecord.comment().text());
+            Log.d(Constants.TAG, "comment locale: " + resultRecord.comment().locale());
+          }
+          else {
+            Log.d(Constants.TAG, "No comment data");
+          }
+        }
+        else {
+          Log.d(Constants.TAG, "Submit failed");
+          Log.d(Constants.TAG, "error code: " + resultRecord.error().code());
+          Log.d(Constants.TAG, "error message: " + resultRecord.error().message());
+        }
+        Log.d(Constants.TAG, "=================================================");
+      }
+    }
+  });
 }
 ```
 
@@ -274,10 +275,10 @@ This method returns a `bitmap` of the morphii in a specified `BasicView`. The vi
 
 ```java
 public void getImage() {
-	// The mBasicView variable is from creating a BasicView.
-	Bitmap bitmap = mBasicView.png();
+  // The mBasicView variable is from creating a BasicView.
+  Bitmap bitmap = mBasicView.png();
   if (bitmap != null) {
-		final ImageView imageView = (ImageView)findViewById(R.id.imageView);
+    final ImageView imageView = (ImageView)findViewById(R.id.imageView);
     imageView.setImageBitmap(bitmap);
   }
   else {
@@ -294,8 +295,8 @@ This method will reset the `BasicView` back to its default values. The method re
 
 ```java
 public void reset() {
-	// The mBasicView variable is from creating a BasicView.
-	mBasicView.reset(true);
+  // The mBasicView variable is from creating a BasicView.
+  mBasicView.reset(true);
 }
 ```
 
@@ -411,40 +412,40 @@ The ReactionResultRecord object is returned from the `submit` methods. Note, if 
 
 ```java
 public void submit() {
-	MorphiiService.sharedInstance().submit(new ReactionService.ReactionRequestCallback() {
-		@Override
-		public void reactionsSubmitted(ArrayList<ReactionResultRecord> arrayList) {
-				for (ReactionResultRecord resultRecord:arrayList) {
-					Log.d(Constants.TAG, "is submitted: " + resultRecord.isSubmitted());
-					Log.d(Constants.TAG, "view id: " + resultRecord.viewId());
-					Log.d(Constants.TAG, "target id: " + resultRecord.targetId());
-					if (resultRecord.isSubmitted()) {
-						Log.d(Constants.TAG, "reaction id: " + resultRecord.reactionId());
-						if (resultRecord.morphii() != null) {
-							Log.d(Constants.TAG, "morphii id: " + resultRecord.morphii().id());
-							Log.d(Constants.TAG, "morphii name: " + resultRecord.morphii().name());
-							Log.d(Constants.TAG, "morphii display name: " + resultRecord.morphii().displayName());
-							Log.d(Constants.TAG, "morphii intensity: " + resultRecord.morphii().intensity());
-							Log.d(Constants.TAG, "morphii weight: " + resultRecord.morphii().weight());
-						}
+  MorphiiService.sharedInstance().submit(new ReactionService.ReactionRequestCallback() {
+    @Override
+    public void reactionsSubmitted(ArrayList<ReactionResultRecord> arrayList) {
+      for (ReactionResultRecord resultRecord:arrayList) {
+        Log.d(Constants.TAG, "is submitted: " + resultRecord.isSubmitted());
+        Log.d(Constants.TAG, "view id: " + resultRecord.viewId());
+        Log.d(Constants.TAG, "target id: " + resultRecord.targetId());
+        if (resultRecord.isSubmitted()) {
+          Log.d(Constants.TAG, "reaction id: " + resultRecord.reactionId());
+          if (resultRecord.morphii() != null) {
+            Log.d(Constants.TAG, "morphii id: " + resultRecord.morphii().id());
+            Log.d(Constants.TAG, "morphii name: " + resultRecord.morphii().name());
+            Log.d(Constants.TAG, "morphii display name: " + resultRecord.morphii().displayName());
+            Log.d(Constants.TAG, "morphii intensity: " + resultRecord.morphii().intensity());
+            Log.d(Constants.TAG, "morphii weight: " + resultRecord.morphii().weight());
+          }
 
-						if (resultRecord.comment() != null) {
-							Log.d(Constants.TAG, "comment text: " + resultRecord.comment().text());
-							Log.d(Constants.TAG, "comment locale: " + resultRecord.comment().locale());
-						}
-						else {
-							Log.d(Constants.TAG, "No comment data");
-						}
-					}
-					else {
-						Log.d(Constants.TAG, "Submit failed");
-						Log.d(Constants.TAG, "error code: " + resultRecord.error().code());
-						Log.d(Constants.TAG, "error message: " + resultRecord.error().message());
-					}
-					Log.d(Constants.TAG, "=================================================");
-			}
-		}
-	});
+          if (resultRecord.comment() != null) {
+            Log.d(Constants.TAG, "comment text: " + resultRecord.comment().text());
+            Log.d(Constants.TAG, "comment locale: " + resultRecord.comment().locale());
+          }
+          else {
+            Log.d(Constants.TAG, "No comment data");
+          }
+        }
+        else {
+          Log.d(Constants.TAG, "Submit failed");
+          Log.d(Constants.TAG, "error code: " + resultRecord.error().code());
+          Log.d(Constants.TAG, "error message: " + resultRecord.error().message());
+        }
+        Log.d(Constants.TAG, "=================================================");
+      }
+    }
+  });
 }
 ```
 
